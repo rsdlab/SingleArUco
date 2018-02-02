@@ -339,8 +339,10 @@ RTC::ReturnCode_t SingleArUco::onExecute(RTC::UniqueId ec_id)
 		m_arUcoPose3D.translates[i].x=(double)tvecs[i][0];
 		m_arUcoPose3D.translates[i].y=(double)tvecs[i][1];
 		m_arUcoPose3D.translates[i].z=(double)tvecs[i][2];
+		/*
 		std::cout<<" RMat "<<std::endl<<RMat<<std::endl;
 		std::cout<<" Trans : "<<m_arUcoPose3D.translates[i].x<<" , "<<m_arUcoPose3D.translates[i].y<<" , "<<m_arUcoPose3D.translates[i].z<<std::endl<<RMat<<std::endl;
+		*/
 		/*
 		if(markerIds[i]==2)
 		  {
@@ -360,35 +362,36 @@ RTC::ReturnCode_t SingleArUco::onExecute(RTC::UniqueId ec_id)
 	{
 	  cv::imshow("Image Window",image);
 	  cv::waitKey(3);
-	}
-
-      //結果の画像出力
-      m_OutImage.data.image.width=width;//データポートに画像幅を出力
-      m_OutImage.data.image.height=height;//データポートに画像の高さを出力
-
-      //データ長さの指定
-      m_OutImage.data.image.raw_data.length(width*height*channels);
-      
-      if(channels==3)//カラー画像の場合
-	{
-	  //フォーマットの指定
-	  m_OutImage.data.image.format=Img::CF_RGB;
-
-	  //RGBの変更
-	  cv::cvtColor(image,image,CV_RGB2BGR);
+	  //結果の画像出力
+	  m_OutImage.data.image.width=width;//データポートに画像幅を出力
+	  m_OutImage.data.image.height=height;//データポートに画像の高さを出力
 	  
+	  //データ長さの指定
+	  m_OutImage.data.image.raw_data.length(width*height*channels);
+	  
+	  if(channels==3)//カラー画像の場合
+	    {
+	      //フォーマットの指定
+	      m_OutImage.data.image.format=Img::CF_RGB;
+	  
+	      //RGBの変更
+	      cv::cvtColor(image,image,CV_RGB2BGR);
+	  
+	    }
+	  else
+	    {
+	      //フォーマットの指定
+	      m_OutImage.data.image.format=Img::CF_GRAY;
+	    }
+	  for( int i(0); i< height; ++i )
+	    {
+	      memcpy(&m_OutImage.data.image.raw_data[ i * width * channels], &image.data[ i * image.step ], width * channels);
+	    }
 	}
-      else
-	{
-	  //フォーマットの指定
-	  m_OutImage.data.image.format=Img::CF_GRAY;
-	}
-       for( int i(0); i< height; ++i )
-	 {
-	 memcpy(&m_OutImage.data.image.raw_data[ i * width * channels], &image.data[ i * image.step ], width * channels);
-	 }
+      m_OutImageOut.write();
+
     }
-  m_OutImageOut.write();
+
   return RTC::RTC_OK;
 }
 
