@@ -1,0 +1,54 @@
+# SingleArUcoTestComp CMake config file
+#
+# This file sets the following variables:
+# SingleArUcoTestComp_FOUND - Always TRUE.
+# SingleArUcoTestComp_INCLUDE_DIRS - Directories containing the SingleArUcoTestComp include files.
+# SingleArUcoTestComp_IDL_DIRS - Directories containing the SingleArUcoTestComp IDL files.
+# SingleArUcoTestComp_LIBRARIES - Libraries needed to use SingleArUcoTestComp.
+# SingleArUcoTestComp_DEFINITIONS - Compiler flags for SingleArUcoTestComp.
+# SingleArUcoTestComp_VERSION - The version of SingleArUcoTestComp found.
+# SingleArUcoTestComp_VERSION_MAJOR - The major version of SingleArUcoTestComp found.
+# SingleArUcoTestComp_VERSION_MINOR - The minor version of SingleArUcoTestComp found.
+# SingleArUcoTestComp_VERSION_REVISION - The revision version of SingleArUcoTestComp found.
+# SingleArUcoTestComp_VERSION_CANDIDATE - The candidate version of SingleArUcoTestComp found.
+
+message(STATUS "Found SingleArUcoTestComp-@PROJECT_VERSION@")
+set(SingleArUcoTestComp_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(SingleArUcoTestComp_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(SingleArUcoTestComp_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(SingleArUcoTestComp_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(SingleArUcoTestComp_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(SingleArUcoTestComp_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(SingleArUcoTestComp_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(SingleArUcoTestComp_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(SingleArUcoTestComp_VERSION @PROJECT_VERSION@)
+set(SingleArUcoTestComp_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(SingleArUcoTestComp_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(SingleArUcoTestComp_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(SingleArUcoTestComp_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+
