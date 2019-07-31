@@ -1,6 +1,6 @@
 ﻿// -*- C++ -*-
 /*!
- * @file SingleArUcoComp.cpp
+ * @file SingleArUcoTestComp.cpp
  * @brief Standalone component
  * @date $Date$
  *
@@ -11,16 +11,16 @@
 #include <iostream>
 #include <string>
 #include <stdlib.h>
-#include "SingleArUco.h"
+#include "SingleArUcoTest.h"
 
 
 void MyModuleInit(RTC::Manager* manager)
 {
-  SingleArUcoInit(manager);
+  SingleArUcoTestInit(manager);
   RTC::RtcBase* comp;
 
   // Create a component
-  comp = manager->createComponent("SingleArUco");
+  comp = manager->createComponent("SingleArUcoTest");
 
   if (comp==NULL)
   {
