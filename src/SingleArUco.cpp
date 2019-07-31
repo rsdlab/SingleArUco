@@ -15,10 +15,10 @@ static const char* singlearuco_spec[] =
   {
     "implementation_id", "SingleArUco",
     "type_name",         "SingleArUco",
-    "description",       "ModuleDescription",
-    "version",           "1.0.0",
-    "vendor",            "Yuki_Takamido",
-    "category",          "Category",
+    "description",       "Single ArUco Marker Detection and Pose Detection",
+    "version",           "1.1.0",
+    "vendor",            "Robot System Design Laboratory, Meijo University",
+    "category",          "ImageProcessing",
     "activity_type",     "PERIODIC",
     "kind",              "DataFlowComponent",
     "max_instance",      "1",
@@ -232,7 +232,7 @@ RTC::ReturnCode_t SingleArUco::onExecute(RTC::UniqueId ec_id)
 	  
 	  if(channels==3)//ＲＧＢの順番を変更(標準的に使われているカメラの出力の順番とOpenCVで用いられている順番が違うため)
 	    {
-	      cv::cvtColor(image,image,CV_RGB2BGR);//チャンネルの順番をＲＧＢからＢＧＲに変更
+	      cv::cvtColor(image,image,cv::COLOR_RGB2BGR);//チャンネルの順番をＲＧＢからＢＧＲに変更
 	    }
 	  
 	}
@@ -246,12 +246,12 @@ RTC::ReturnCode_t SingleArUco::onExecute(RTC::UniqueId ec_id)
 	  cv::Mat decode_image;
 	  if(channels==3)//3チャンネルの場合
 	    {
-	      decode_image=cv::imdecode(cv::Mat(compressed_image),CV_LOAD_IMAGE_COLOR);
-	      cv::cvtColor(decode_image,image,CV_RGB2BGR);
+	      decode_image=cv::imdecode(cv::Mat(compressed_image),cv::IMREAD_COLOR);
+	      cv::cvtColor(decode_image,image,cv::COLOR_RGB2BGR);
 	    }
 	  else
 	    {
-	      decode_image=cv::imdecode(cv::Mat(compressed_image),CV_LOAD_IMAGE_GRAYSCALE);
+	      decode_image=cv::imdecode(cv::Mat(compressed_image),cv::IMREAD_GRAYSCALE);
 	      image=decode_image;
 	    }
 	}
@@ -375,7 +375,7 @@ RTC::ReturnCode_t SingleArUco::onExecute(RTC::UniqueId ec_id)
 	      m_OutImage.data.image.format=Img::CF_RGB;
 	  
 	      //RGBの変更
-	      cv::cvtColor(image,image,CV_RGB2BGR);
+	      cv::cvtColor(image,image,cv::COLOR_RGB2BGR);
 	  
 	    }
 	  else

@@ -1,4 +1,4 @@
-SingleArUcoName - English
+﻿SingleArUcoName - English
 ========================
 
 .. toctree::
@@ -106,8 +106,8 @@ The available configuration parameters are described below:
 ================ ================== ================ ======
 Parameter        Data type          Default Value    Effect
 ================ ================== ================ ======
-MarkerSize       double             0.05             
 Dictionary       string             ORIGINAL         
+MarkerSize       double             0.05             
 ================ ================== ================ ======
 
 Ports

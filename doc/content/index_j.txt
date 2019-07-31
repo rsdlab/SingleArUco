@@ -1,4 +1,4 @@
-SingleArUco - 日本語
+﻿SingleArUco - 日本語
 =======================
 
 
@@ -98,8 +98,8 @@ SingleArUcoは ``SingleArUcoComp`` を実行（ ``${prefix}/components/bin`` に
 ================ ================== ================ ====
 パラメータ       データ型           デフォルト値     意味
 ================ ================== ================ ====
-MarkerSize       double             0.05             
 Dictionary       string             ORIGINAL         
+MarkerSize       double             0.05             
 ================ ================== ================ ====
 
 ポート
